@@ -1,5 +1,5 @@
 # ideapad_mode
-**Controll the battery and cooling of the Lenovo Ideapad 5 on Linux**
+**Control the battery and cooling of the Lenovo Ideapad 5 on Linux**
 
 ## Features
 - set cooling modes: intelligent, extreme performance, battery saving
