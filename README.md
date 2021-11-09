@@ -42,4 +42,4 @@ sudo ideapadmode batterycon on|off
 [ArchWiki Lenovo IdeaPad 5 14are05](https://wiki.archlinux.org/title/Lenovo_IdeaPad_5_14are05)
 
 ## License
-Licensed under the [MIT](https://github.com/chrisinick/IdeapadMode/LICENSE.md) License.
+Licensed under the [MIT](https://github.com/chrisinick/ideapad_mode/blob/master/LICENSE) License.
