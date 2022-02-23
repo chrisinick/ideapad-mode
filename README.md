@@ -12,12 +12,12 @@
 Use your package manager to install acpi_call (or acpi_call-lts for LTS kernel, acpi_call-dkms for other kernels).
 
 Type 'uname -r' to find out which kernel you are using.
-### 2. Clone and Copy Script
+### 2. Clone and Install
 ```bash
 git clone --depth=1 https://github.com/chrisinick/ideapad_mode.git
-sudo cp ideapad_mode/ideapadmode /usr/local/bin
+sudo install ideapad_mode/ideapadmode /usr/local/bin
 ```
-You can delete the script by typing 'sudo rm /usr/local/bin/ideapadmode'.
+You can uninstall the script by typing 'sudo rm /usr/local/bin/ideapadmode'.
 
 ## Usage
 ### Show Current Status
