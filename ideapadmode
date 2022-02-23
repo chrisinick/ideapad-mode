@@ -1,11 +1,11 @@
 #!/bin/env bash
 cooling_status () {
 	echo '\_SB.PCI0.LPC0.EC0.STMD' >/proc/acpi/call
-	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1called" ]]; then
+	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
 		echo "cooling: intelligent"
 	else
 		echo '\_SB.PCI0.LPC0.EC0.QTMD' >/proc/acpi/call
-		if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1called" ]]; then
+		if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
 			echo "cooling: battery saving"
 		else
 			echo "cooling: extreme performance"
@@ -15,7 +15,7 @@ cooling_status () {
 
 rapidcharge_status () {
 	echo '\_SB.PCI0.LPC0.EC0.FCGM' >/proc/acpi/call
-	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1called" ]]; then
+	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
 		echo "rapid charge: on"
 	else
 		echo "rapid charge: off"
@@ -24,7 +24,7 @@ rapidcharge_status () {
 
 batterycon_status () {
 	echo '\_SB.PCI0.LPC0.EC0.BTSG' >/proc/acpi/call
-	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1called" ]]; then
+	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
 		echo "battery conservation: on"
 	else
 		echo "battery conservation: off"
