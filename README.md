@@ -1,4 +1,4 @@
-# ideapad_mode
+# ideapadmode
 
 **Control the battery and cooling of the Lenovo Ideapad 5 on Linux**
 
@@ -20,8 +20,8 @@ Type 'uname -r' to find out which kernel you are using.
 ### 2. Download and Installation
 
 ```bash
-git clone --depth=1 https://github.com/chrisinick/ideapad_mode.git
-cd ideapad_mode
+git clone --depth=1 https://github.com/chrisinick/ideapad-mode.git
+cd ideapad-mode
 chmod u+x ideapadmode
 ```
 
@@ -57,5 +57,5 @@ sudo ideapadmode batterycon on|off
 
 ## License
 
-Licensed under the [MIT](https://github.com/chrisinick/ideapad_mode/blob/master/LICENSE) License.
+Licensed under the [MIT](https://github.com/chrisinick/ideapad-mode/blob/master/LICENSE) License.
 
