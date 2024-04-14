@@ -57,5 +57,5 @@ sudo ideapadmode batterycon on|off
 
 ## License
 
-Licensed under the [MIT](https://github.com/chrisinick/ideapad-mode/blob/master/LICENSE) License.
+Licensed under the [GPLv3](https://github.com/chrisinick/ideapad-mode/blob/master/LICENSE.txt) License.
 
