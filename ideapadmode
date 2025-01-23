@@ -1,4 +1,5 @@
-#!/bin/env bash
+#!/usr/bin/env bash
+
 cooling_status () {
 	echo '\_SB.PCI0.LPC0.EC0.STMD' >/proc/acpi/call
 	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
@@ -32,7 +33,7 @@ batterycon_status () {
 }
 
 demand_root () {
-	if [[ $EUID -ne 0 ]]; then
+	if [[ "$EUID" -ne 0 ]]; then
 		>&2 echo "ideapadmode: Permission denied. Command must be run as root."
 		exit 1
 	fi
@@ -47,7 +48,7 @@ try_modprobe () {
 }
 
 # print status
-if [[ $1 = "status" ]]; then
+if [[ "$1" = "status" ]]; then
 
 	demand_root
 	try_modprobe
@@ -57,16 +58,16 @@ if [[ $1 = "status" ]]; then
 	batterycon_status
 
 # set cooling mode
-elif [[ $1 = "cooling" ]]; then
+elif [[ "$1" = "cooling" ]]; then
 
 	demand_root
 	try_modprobe
 
-	if [[ $2 = "intelligent" ]]; then
+	if [[ "$2" = "intelligent" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001' >/proc/acpi/call
-	elif [[ $2 = "extreme" ]]; then
+	elif [[ "$2" = "extreme" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001' >/proc/acpi/call
-	elif [[ $2 = "battery" ]]; then
+	elif [[ "$2" = "battery" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001' >/proc/acpi/call
 	else
 		>&2 echo "Not a valid cooling mode. Available modes are 'intelligent', 'extreme' and 'battery'."
@@ -78,15 +79,15 @@ elif [[ $1 = "cooling" ]]; then
 	cooling_status
 
 # set rapid charge
-elif [[ $1 = "rapidcharge" ]]; then
+elif [[ "$1" = "rapidcharge" ]]; then
 
 	demand_root
 	try_modprobe
 
-	if [[ $2 = "on" ]]; then
+	if [[ "$2" = "on" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07' >/proc/acpi/call
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05' >/proc/acpi/call
-	elif [[ $2 = "off" ]]; then
+	elif [[ "$2" = "off" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' >/proc/acpi/call
 	else
 		>&2 echo "No valid input. Rapid Charge can be either 'on' or 'off'."
@@ -99,15 +100,15 @@ elif [[ $1 = "rapidcharge" ]]; then
 	batterycon_status
 
 # set battery conservation
-elif [[ $1 = "batterycon" ]]; then
+elif [[ "$1" = "batterycon" ]]; then
 
 	demand_root
 	try_modprobe
 
-	if [[ $2 = "on" ]]; then
+	if [[ "$2" = "on" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x03' >/proc/acpi/call
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' >/proc/acpi/call
-	elif [[ $2 = "off" ]]; then
+	elif [[ "$2" = "off" ]]; then
 		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05' >/proc/acpi/call
 	else
 		>&2 echo "No valid input. Battery Conservation can be either 'on' or 'off'."
