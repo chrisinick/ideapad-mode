@@ -9,9 +9,21 @@ cooling_status () {
 		if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
 			echo "cooling: battery saving"
 		else
-			echo "cooling: extreme performance"
+			echo "cooling: extreme"
 		fi
 	fi
+}
+
+cooling_intelligent () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001' >/proc/acpi/call
+}
+
+cooling_extreme () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001' >/proc/acpi/call
+}
+
+cooling_battery () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001' >/proc/acpi/call
 }
 
 rapidcharge_status () {
@@ -23,6 +35,14 @@ rapidcharge_status () {
 	fi
 }
 
+rapidcharge_on () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07' >/proc/acpi/call
+}
+
+rapidcharge_off () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' >/proc/acpi/call
+}
+
 batterycon_status () {
 	echo '\_SB.PCI0.LPC0.EC0.BTSG' >/proc/acpi/call
 	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
@@ -30,6 +50,14 @@ batterycon_status () {
 	else
 		echo "battery conservation: off"
 	fi
+}
+
+batterycon_on () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x03' >/proc/acpi/call
+}
+
+batterycon_off () {
+    echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05' >/proc/acpi/call
 }
 
 demand_root () {
@@ -64,11 +92,11 @@ elif [[ "$1" = "cooling" ]]; then
 	try_modprobe
 
 	if [[ "$2" = "intelligent" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001' >/proc/acpi/call
+	    cooling_intelligent
 	elif [[ "$2" = "extreme" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001' >/proc/acpi/call
+	    cooling_extreme
 	elif [[ "$2" = "battery" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001' >/proc/acpi/call
+	    cooling_battery
 	else
 		>&2 echo "Not a valid cooling mode. Available modes are 'intelligent', 'extreme' and 'battery'."
 		exit 1
@@ -85,12 +113,12 @@ elif [[ "$1" = "rapidcharge" ]]; then
 	try_modprobe
 
 	if [[ "$2" = "on" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x07' >/proc/acpi/call
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05' >/proc/acpi/call
+	    rapidcharge_on
+		batterycon_off
 	elif [[ "$2" = "off" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' >/proc/acpi/call
+	    rapidcharge_off
 	else
-		>&2 echo "No valid input. Rapid Charge can be either 'on' or 'off'."
+		>&2 echo "No valid input. Rapid charge can be either 'on' or 'off'."
 		exit 1
 	fi
 
@@ -106,12 +134,12 @@ elif [[ "$1" = "batterycon" ]]; then
 	try_modprobe
 
 	if [[ "$2" = "on" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x03' >/proc/acpi/call
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x08' >/proc/acpi/call
+	    batterycon_on
+		rapidcharge_off
 	elif [[ "$2" = "off" ]]; then
-		echo '\_SB.PCI0.LPC0.EC0.VPC0.SBMC 0x05' >/proc/acpi/call
+	    batterycon_off
 	else
-		>&2 echo "No valid input. Battery Conservation can be either 'on' or 'off'."
+		>&2 echo "No valid input. Battery conservation can be either 'on' or 'off'."
 		exit 1
 	fi
 
