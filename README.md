@@ -1,10 +1,10 @@
 # ideapadmode
 
-**Control the battery and cooling of the Lenovo IdeaPad 5 14are05 on Linux**
+**Control the battery and system performance mode of the Lenovo IdeaPad 5 14are05 on Linux**
 
 ## Features
 
-- Set cooling modes: intelligent, extreme performance, battery saving
+- Set system performance modes: intelligent, extreme, battery saving
 - Enable/disable rapid charge
 - Enable/disable battery conservation
 
@@ -34,10 +34,10 @@ Optionally, add ideapadmode to PATH to use it from anywhere in the shell.
 ```bash
 sudo ideapadmode status
 ```
-### Set Cooling Mode
+### Set System Performance Mode
 
 ```bash
-sudo ideapadmode cooling intelligent|extreme|battery
+sudo ideapadmode performance intelligent|extreme|battery
 ```
 
 ### Enable/Disable Rapid Charge

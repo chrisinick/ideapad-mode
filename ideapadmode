@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 
-cooling_status () {
+performance_status () {
 	echo '\_SB.PCI0.LPC0.EC0.STMD' >/proc/acpi/call
 	if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
-		echo "cooling: intelligent"
+		echo "performance: intelligent"
 	else
 		echo '\_SB.PCI0.LPC0.EC0.QTMD' >/proc/acpi/call
 		if [[ $(tr -d '\0' < /proc/acpi/call) = "0x1" ]]; then
-			echo "cooling: battery saving"
+			echo "performance: battery saving"
 		else
-			echo "cooling: extreme"
+			echo "performance: extreme"
 		fi
 	fi
 }
 
-cooling_intelligent () {
+performance_intelligent () {
     echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x000FB001' >/proc/acpi/call
 }
 
-cooling_extreme () {
+performance_extreme () {
     echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0012B001' >/proc/acpi/call
 }
 
-cooling_battery () {
+performance_battery () {
     echo '\_SB.PCI0.LPC0.EC0.VPC0.DYTC 0x0013B001' >/proc/acpi/call
 }
 
@@ -81,30 +81,30 @@ if [[ "$1" = "status" ]]; then
 	demand_root
 	try_modprobe
 
-	cooling_status
+	performance_status
 	rapidcharge_status
 	batterycon_status
 
-# set cooling mode
-elif [[ "$1" = "cooling" ]]; then
+# set performance mode
+elif [[ "$1" = "performance" ]]; then
 
 	demand_root
 	try_modprobe
 
 	if [[ "$2" = "intelligent" ]]; then
-	    cooling_intelligent
+	    performance_intelligent
 	elif [[ "$2" = "extreme" ]]; then
-	    cooling_extreme
+	    performance_extreme
 	elif [[ "$2" = "battery" ]]; then
-	    cooling_battery
+	    performance_battery
 	else
-		>&2 echo "Not a valid cooling mode. Available modes are 'intelligent', 'extreme' and 'battery'."
+		>&2 echo "Not a valid performance mode. Available modes are 'intelligent', 'extreme' and 'battery'."
 		exit 1
 	fi
 
 	echo "Verifying..."
 	sleep 0.125
-	cooling_status
+	performance_status
 
 # set rapid charge
 elif [[ "$1" = "rapidcharge" ]]; then
@@ -151,6 +151,6 @@ elif [[ "$1" = "batterycon" ]]; then
 # documentation
 else
 
-	printf "ideapadmode\n\nUsage: ideapadmode status\n       ideapadmode cooling intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\nSource code: https://github.com/chrisinick/ideapad-mode\n"
+	printf "ideapadmode\n\nUsage: ideapadmode status\n       ideapadmode performance intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\nSource code: https://github.com/chrisinick/ideapad-mode\n"
 
 fi
