@@ -123,6 +123,6 @@ elif [[ "$1" = "batterycon" ]]; then
 # documentation
 else
 
-	printf "ideapadmode\n\nUsage: ideapadmode status\n       ideapadmode cooling intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\nSource code: https://github.com/chrisinick/ideapad_mode.git\n"
+	printf "ideapadmode\n\nUsage: ideapadmode status\n       ideapadmode cooling intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\nSource code: https://github.com/chrisinick/ideapad-mode\n"
 
 fi
