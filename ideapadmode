@@ -41,7 +41,7 @@ demand_root () {
 try_modprobe () {
 	# check acpi_call dependency
 	if [[ $(modprobe acpi_call 2>&1) ]]; then
-		>&2 echo "ideapadmode: acpi_call is not installed. Install acpi_call to run the command (or acpi_call-lts for LTS kernel, acpi_call-dkms for other kernels)."
+		>&2 echo "ideapadmode: acpi_call failed. Install acpi_call to run the command (or acpi_call-lts for LTS kernel, acpi_call-dkms for other kernels)."
 		exit 1
 	fi
 }
@@ -122,6 +122,6 @@ elif [[ $1 = "batterycon" ]]; then
 # documentation
 else
 
-	printf "ideapad_mode\n\nusage: ideapadmode status\n       ideapadmode cooling intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\ngithub: https://github.com/chrisinick/ideapad_mode.git\n"
+	printf "ideapadmode\n\nUsage: ideapadmode status\n       ideapadmode cooling intelligent|extreme|battery\n       ideapadmode rapidcharge|batterycon on|off\n\nSource code: https://github.com/chrisinick/ideapad_mode.git\n"
 
 fi

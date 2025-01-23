@@ -1,23 +1,23 @@
 # ideapadmode
 
-**Control the battery and cooling of the Lenovo Ideapad 5 on Linux**
+**Control the battery and cooling of the Lenovo IdeaPad 5 14are05 on Linux**
 
 ## Features
 
-- set cooling modes: intelligent, extreme performance, battery saving
-- enable/disable rapid charge
-- enable/disable battery conservation
+- Set cooling modes: intelligent, extreme performance, battery saving
+- Enable/disable rapid charge
+- Enable/disable battery conservation
 
 ## Installation
 
 ### 1. Dependencies
 
 - bash
-- acpi_call (or acpi_call-lts for LTS kernel, acpi_call-dkms for other kernels).
+- acpi_call (or acpi_call-lts for LTS kernel, acpi_call-dkms for other kernels)
 
-Type 'uname -r' to find out which kernel you are using.
+Type `uname -r` to find out which kernel you are using.
 
-### 2. Download and Installation
+### 2. Download
 
 ```bash
 git clone --depth=1 https://github.com/chrisinick/ideapad-mode.git
@@ -58,4 +58,3 @@ sudo ideapadmode batterycon on|off
 ## License
 
 Licensed under the [GPLv3](https://github.com/chrisinick/ideapad-mode/blob/master/LICENSE.txt) License.
-
